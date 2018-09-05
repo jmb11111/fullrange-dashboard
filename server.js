@@ -11,6 +11,7 @@ const axios = require("axios");
 // import apiKey from "./config.js";
 const app = express();
 let apiKey = process.env.api;
+let sugarApi = process.env.sugar - api;
 // set our port
 app.set("port", process.env.PORT || 5000);
 
@@ -65,6 +66,17 @@ app.get("/trip-duration/:location", (req, res) => {
   //   res.json({
   //     message: "Welcome to the Course Review API"
   //   });
+});
+
+app.get("/wod", function(req, res) {
+  axios
+    .get(`https://api.sugarwod.com/v2/workouts/?apiKey=${sugarApi}`)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log("Error fetching and parsing data", error);
+    });
 });
 
 // uncomment this route in order to test the global error handler
