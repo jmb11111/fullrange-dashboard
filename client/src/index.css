@@ -18,9 +18,13 @@ body {
 }
 
 #highfive {
-  height: 190px;
+  max-height: 460px;
+  overflow-y: scroll;
 }
-
+#classes {
+  max-height: 350px;
+  overflow-y: scroll;
+}
 /* #facebook {
   height: 60%;
 } */

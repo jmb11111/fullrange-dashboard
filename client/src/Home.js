@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import countdown from "countdown";
 import FacebookProvider, { Page } from "react-facebook";
+import axios from "axios";
 
 let location;
 function getLocation() {
@@ -24,21 +25,32 @@ let today = () => {
 };
 class Home extends Component {
   state = {
-    today: ""
+    today: "",
+    wods: []
   };
   //gets location as soon as component loads
   componentDidMount() {
+    this.todaysWod();
     getLocation();
     this.setState({ today: today() });
   }
   //stops page from refreshing on submit, runs onTime with current location parameters
   handleSubmit = e => {
     e.preventDefault();
-
     this.props.nextClass(null);
     this.props.onTime(location);
   };
-
+  todaysWod = () => {
+    axios
+      .get(`/wod`)
+      .then(response => {
+        this.setState({ wods: response.data.data });
+        console.log(this.state.wods);
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+      });
+  };
   render() {
     return (
       <div>
@@ -59,7 +71,7 @@ class Home extends Component {
               (this.props.duration && this.state.today === 3) ||
               (this.props.duration && this.state.today === 4) ||
               (this.props.duration && this.state.today === 5) ? (
-                <ul className="list-group list-group-flush ">
+                <ul className="list-group list-group-flush" id="classes">
                   <li className="list-group-item active">
                     ETA: {this.props.duration}
                   </li>
@@ -138,7 +150,7 @@ class Home extends Component {
                 ""
               )}
               {this.props.duration && this.state.today === 6 ? (
-                <ul className="list-group list-group-flush ">
+                <ul className="list-group list-group-flush  " id="classes">
                   <li className="list-group-item active">
                     ETA: {this.props.duration}
                   </li>
@@ -166,7 +178,7 @@ class Home extends Component {
                 ""
               )}
               {this.props.duration && this.state.today === 0 ? (
-                <ul className="list-group list-group-flush ">
+                <ul className="list-group list-group-flush " id="classes">
                   <li className="list-group-item list-group-item-warning">
                     Sorry, no classes on Sunday!
                   </li>
@@ -191,29 +203,27 @@ class Home extends Component {
                 href="https://www.facebook.com/FullRangeCrossFit/?fb_dtsg_ag=AdwS_WIHC78zl6x8ZqEtUvm0rWfbAME0otphGaxU6Drgtw%3AAdz0CYgdDnHRAqJts48e7M0kmWwKlpzT3dKJ-y-qF1m5ZA"
                 tabs="timeline"
                 width="280"
+                className="mt-3"
               />
             </FacebookProvider>
           </div>
 
           <div className="card col-lg-3 bg-dark text-center">
-            <div className="card-header bg-dark text-white">
-              Recent Spotify Songs
+            <div className="card-header bg-primary text-white mt-3">
+              Today's WOD
             </div>
-            <form className="mb-3" onSubmit={this.props.todaysWod}>
-              <button type="submit" className="btn btn-primary">
-                Wod
-              </button>
-            </form>
-            <ul className="list-group list-group-flush ">
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-              <li className="list-group-item">Coming Soon!</li>
-            </ul>
+            <div id="highfive" className="mb-3">
+              {this.state.wods.map((wod, index) => (
+                <div className="card-body bg-light ">
+                  <h5 className="card-title bg-primary rounded-top text-white mb-0">
+                    {wod.attributes.title}
+                  </h5>
+                  <p className="card-text border border-primary rounded-bottom">
+                    {wod.attributes.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

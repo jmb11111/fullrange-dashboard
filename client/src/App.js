@@ -65,16 +65,7 @@ class App extends Component {
       });
   };
 
-  todaysWod = () => {
-    axios
-      .get(`/wod`)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log("Error fetching and parsing data", error);
-      });
-  };
+
 
   constructor() {
     super();
@@ -103,6 +94,7 @@ class App extends Component {
                 SatFirstClassIs={this.state.SatFirstClass}
                 SatSecondClassIs={this.state.SatSecondClass}
                 todaysWod={this.todaysWod}
+                wods={this.state.wods}
               />
             )}
           />
