@@ -11,7 +11,7 @@ const axios = require("axios");
 // import apiKey from "./config.js";
 const app = express();
 let apiKey = process.env.api;
-let sugarApi = process.env.sugar - api;
+// let sugarApi = process.env.sugar - api;
 // set our port
 app.set("port", process.env.PORT || 5000);
 
