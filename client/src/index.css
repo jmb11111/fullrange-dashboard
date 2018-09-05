@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url("/rawpixel-666934-unsplash.jpg");
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 3%;
+  margin-left: -50px;
+}
+
+#comp {
+  height: 190px;
+  width: 190px;
+}
+
+#highfive {
+  height: 190px;
+}
+
+/* #facebook {
+  height: 60%;
+} */
