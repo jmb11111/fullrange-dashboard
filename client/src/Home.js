@@ -215,10 +215,10 @@ class Home extends Component {
             <div id="highfive" className="mb-3">
               {this.state.wods.map((wod, index) => (
                 <div className="card-body bg-light ">
-                  <h5 className="card-title bg-primary rounded-top text-white mb-0">
-                    {wod.attributes.title}
-                  </h5>
-                  <p className="card-text border border-primary rounded-bottom">
+                  <h6 className="card-title bg-primary rounded-top text-white mb-0 p-2">
+                    <strong>{wod.attributes.title}</strong>
+                  </h6>
+                  <p className="card-text bg-dark text-white border border-primary rounded-bottom">
                     {wod.attributes.description}
                   </p>
                 </div>
