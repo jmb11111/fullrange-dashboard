@@ -73,7 +73,7 @@ app.get("/wod", function(req, res) {
   axios
     .get(`https://api.sugarwod.com/v2/workouts/?apiKey=${sugarApi}`)
     .then(response => {
-      console.log(response.data);
+      res.json(response.data);
     })
     .catch(error => {
       console.log("Error fetching and parsing data", error);
