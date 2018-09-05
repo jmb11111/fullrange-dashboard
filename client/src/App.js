@@ -54,13 +54,22 @@ class App extends Component {
     });
   };
 
-
-
   willIbeOnTime = location => {
     axios
       .get(`/trip-duration/${location}`)
       .then(response => {
         this.setState({ tripDuration: Math.round(response.data.value / 60) });
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+      });
+  };
+
+  todaysWod = () => {
+    axios
+      .get(`/wod`)
+      .then(response => {
+        console.log(response);
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
@@ -93,6 +102,7 @@ class App extends Component {
                 NineAMClassIs={this.state.NineAMClass}
                 SatFirstClassIs={this.state.SatFirstClass}
                 SatSecondClassIs={this.state.SatSecondClass}
+                todaysWod={this.todaysWod}
               />
             )}
           />

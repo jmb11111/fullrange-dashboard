@@ -199,6 +199,11 @@ class Home extends Component {
             <div className="card-header bg-dark text-white">
               Recent Spotify Songs
             </div>
+            <form className="mb-3" onSubmit={this.props.todaysWod}>
+              <button type="submit" className="btn btn-primary">
+                Wod
+              </button>
+            </form>
             <ul className="list-group list-group-flush ">
               <li className="list-group-item">Coming Soon!</li>
               <li className="list-group-item">Coming Soon!</li>
