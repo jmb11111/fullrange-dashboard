@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
 });
 app.use(express.static(path.join(__dirname, "client/build")));
 mongoose.connect(
-  url,
+  url || "mongodb://localhost:27017/reviews",
   { useNewUrlParser: true }
 );
 const db = mongoose.connection;
