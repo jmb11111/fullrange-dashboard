@@ -30,7 +30,7 @@ class Header extends Component {
           </ul>
           <ul className="nav navbar-nav ml-auto mr-md-auto">
             <li className="nav-item">
-              <a className="nav-link" href="http://crossfit.com">
+              <a className="nav-link" href="/comment">
                 CrossFit
               </a>
             </li>

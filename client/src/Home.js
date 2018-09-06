@@ -24,10 +24,17 @@ let today = () => {
   return n;
 };
 class Home extends Component {
-  state = {
-    today: "",
-    wods: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      wods: []
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   //gets location as soon as component loads
   componentDidMount() {
     this.todaysWod();
@@ -39,6 +46,23 @@ class Home extends Component {
     e.preventDefault();
     this.props.nextClass(null);
     this.props.onTime(location);
+  };
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
+  submitComment = e => {
+    e.preventDefault();
+    alert("A comment was submitted: " + this.state.value);
+    axios
+      .post("/review", {
+        review: this.state.value
+      })
+      .then(function(response) {
+        console.log(response.body);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
   todaysWod = () => {
     axios
@@ -223,6 +247,31 @@ class Home extends Component {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+        <div className="container card-columns ml-auto mr-auto mt-5 row d-flex justify-content-around ">
+          <div className="card col-lg-6 bg-dark text-center">
+            <div className="card-body bg-dark text-white mb-5">
+              <h5 className="card-title mb-5">
+                Leave a comment or suggestion!
+              </h5>
+              <form onSubmit={this.submitComment}>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    placeholder="Type something..."
+                    rows="3"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Send it!
+                </button>
+              </form>
             </div>
           </div>
         </div>
