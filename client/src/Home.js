@@ -28,7 +28,8 @@ class Home extends Component {
     super(props);
     this.state = {
       value: "",
-      wods: []
+      wods: [],
+      posted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +53,6 @@ class Home extends Component {
   }
   submitComment = e => {
     e.preventDefault();
-    alert("A comment was submitted: " + this.state.value);
     axios
       .post("/review", {
         review: this.state.value
@@ -63,6 +63,7 @@ class Home extends Component {
       .catch(function(error) {
         console.log(error);
       });
+    this.setState({ posted: true });
   };
   todaysWod = () => {
     axios
@@ -252,27 +253,33 @@ class Home extends Component {
         </div>
         <div className="container card-columns ml-auto mr-auto mt-5 row d-flex justify-content-around ">
           <div className="card col-lg-6 bg-dark text-center">
-            <div className="card-body bg-dark text-white mb-5">
-              <h5 className="card-title mb-5">
-                Leave a comment or suggestion!
-              </h5>
-              <form onSubmit={this.submitComment}>
-                <div class="form-group">
-                  <input
-                    type="text"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    class="form-control"
-                    id="exampleFormControlTextarea1"
-                    placeholder="Type something..."
-                    rows="3"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Send it!
-                </button>
-              </form>
-            </div>
+            {this.state.posted === false ? (
+              <div className="card-body bg-dark text-white mb-5">
+                <h5 className="card-title mb-5">
+                  Leave a comment or suggestion!
+                </h5>
+                <form onSubmit={this.submitComment}>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      placeholder="Type something..."
+                      rows="3"
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-primary">
+                    Send it!
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div className="card-body bg-dark text-white mb-5">
+                <h5 className="card-title mb-5">Thank you!</h5>
+              </div>
+            )}
           </div>
         </div>
       </div>
