@@ -3,15 +3,18 @@
 // load modules
 const express = require("express");
 const morgan = require("morgan");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const jsonParser = require("body-parser").json;
 const session = require("express-session");
 const path = require("path");
 const axios = require("axios");
+const Review = require("./models").Review;
+
 // import apiKey from "./config.js";
 const app = express();
 let apiKey = process.env.api;
 let sugarApi = process.env.sugarApi;
+let url = process.env.MONGODB_URI;
 // set our port
 
 app.set("port", process.env.PORT || 5000);
@@ -34,19 +37,19 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, "client/build")));
-// mongoose.connect(
-//   "mongodb://localhost:27017/gym-app",
-//   { useNewUrlParser: true }
-// );
-// const db = mongoose.connection;
+mongoose.connect(
+  url,
+  { useNewUrlParser: true }
+);
+const db = mongoose.connection;
 
-// db.on("error", function(err) {
-//   console.error("connection error:", err);
-// });
+db.on("error", function(err) {
+  console.error("connection error:", err);
+});
 
-// db.once("open", function() {
-//   console.log("db connection successful");
-// });
+db.once("open", function() {
+  console.log("db connection successful");
+});
 
 app.get("/trip-duration/:location", (req, res) => {
   console.log(req.params.location);
@@ -63,10 +66,6 @@ app.get("/trip-duration/:location", (req, res) => {
     .catch(error => {
       console.log("Error fetching and parsing data", error);
     });
-  //   res.status(200);
-  //   res.json({
-  //     message: "Welcome to the Course Review API"
-  //   });
 });
 
 app.get("/wod", function(req, res) {
@@ -79,7 +78,20 @@ app.get("/wod", function(req, res) {
       console.log("Error fetching and parsing data", error);
     });
 });
-
+app.post("/review", function(req, res, next) {
+  var review = new Review(req.body);
+  review.save(function(err, review) {
+    if (err) {
+      res.sendStatus(400);
+      return next(err);
+    } else {
+      console.log(review, req.body);
+      res.location("/");
+      res.status(201);
+      res.end();
+    }
+  });
+});
 // uncomment this route in order to test the global error handler
 app.get("/error", function(req, res) {
   throw new Error("Test error");
