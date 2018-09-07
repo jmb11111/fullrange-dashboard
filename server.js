@@ -12,10 +12,10 @@ const config = require("./config");
 
 // import apiKey from "./config.js";
 const app = express();
-let apiKey = process.env.api || config.googleAPI;
-let sugarApi = process.env.sugarApi || config.sugarAPI;
-let weatherApi = process.env.weatherApi || config.weatherAPI;
-let url = process.env.MONGODB_URI || "mongodb://localhost:27017/reviews";
+let apiKey = process.env.api;
+let sugarApi = process.env.sugarApi;
+let weatherApi = process.env.weatherApi;
+let url = process.env.MONGODB_URI;
 // set our port
 
 app.set("port", process.env.PORT || 5000);
