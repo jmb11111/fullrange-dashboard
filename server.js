@@ -37,6 +37,7 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
 app.use(express.static(path.join(__dirname, "client/build")));
 mongoose.connect(
   url || "mongodb://localhost:27017/reviews",

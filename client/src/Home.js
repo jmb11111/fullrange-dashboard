@@ -28,7 +28,8 @@ class Home extends Component {
     this.state = {
       value: "",
       wods: [],
-      posted: false
+      posted: false,
+      temp: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,8 +40,20 @@ class Home extends Component {
   componentDidMount() {
     this.todaysWod();
     getLocation();
+    this.currentWeather();
     this.setState({ today: today() });
   }
+
+  currentWeather = () => {
+    axios
+      .get(`/weather`)
+      .then(response => {
+        this.setState({ temp: response.data });
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+      });
+  };
   //stops page from refreshing on submit, runs onTime with current location parameters
   handleSubmit = e => {
     e.preventDefault();
@@ -78,7 +91,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header temp={this.state.temp} />
         <div className="container card-columns ml-auto mr-auto mt-5 row d-flex justify-content-between ">
           <div
             className="card col-lg-3 bg-dark text-center shadow "
