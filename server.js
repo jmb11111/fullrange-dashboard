@@ -8,7 +8,6 @@ const jsonParser = require("body-parser").json;
 const path = require("path");
 const axios = require("axios");
 const Review = require("./models").Review;
-const config = require("./config");
 
 // import apiKey from "./config.js";
 const app = express();
