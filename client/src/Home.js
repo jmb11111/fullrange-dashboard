@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Header from "./Header.js";
-import countdown from "countdown";
 import FacebookProvider, { Page } from "react-facebook";
 import axios from "axios";
 
@@ -216,7 +215,7 @@ class Home extends Component {
               )}
               {!this.props.duration ? (
                 <img
-                  class="card-img-bottom mt-5 rounded"
+                  className="card-img-bottom mt-5 rounded"
                   src="/trafficLight.jpg"
                   alt="lights"
                 />
@@ -262,12 +261,12 @@ class Home extends Component {
                   Leave a comment or suggestion!
                 </h5>
                 <form onSubmit={this.submitComment}>
-                  <div class="form-group">
+                  <div className="form-group">
                     <input
                       type="text"
                       value={this.state.value}
                       onChange={this.handleChange}
-                      class="form-control"
+                      className="form-control"
                       id="exampleFormControlTextarea1"
                       placeholder="Type something..."
                       rows="3"

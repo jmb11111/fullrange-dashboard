@@ -1,6 +1,28 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      temp: ""
+    };
+  }
+
+  currentWeather = () => {
+    axios
+      .get(`/weather`)
+      .then(response => {
+        this.setState({ temp: response.data });
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+      });
+  };
+
+  componentDidMount() {
+    this.currentWeather();
+  }
   render() {
     return (
       <nav
@@ -29,10 +51,11 @@ class Header extends Component {
             </li>
           </ul>
           <ul className="nav navbar-nav ml-auto mr-md-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="/comment">
-                CrossFit
-              </a>
+            <li className="nav-item active">
+              <p className="nav-link mb-0" href="/comment">
+                Current Temp {this.state.temp}
+                 °F
+              </p>
             </li>
           </ul>
         </div>

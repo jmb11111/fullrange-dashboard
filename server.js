@@ -5,7 +5,6 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const jsonParser = require("body-parser").json;
-const session = require("express-session");
 const path = require("path");
 const axios = require("axios");
 const Review = require("./models").Review;
@@ -15,6 +14,7 @@ const config = require("./config");
 const app = express();
 let apiKey = process.env.api || config.googleAPI;
 let sugarApi = process.env.sugarApi || config.sugarAPI;
+let weatherApi = process.env.weatherApi || config.weatherAPI;
 let url = process.env.MONGODB_URI;
 // set our port
 
@@ -79,6 +79,21 @@ app.get("/wod", function(req, res) {
       console.log("Error fetching and parsing data", error);
     });
 });
+
+app.get("/weather", function(req, res) {
+  axios
+    .get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=41&lon=-71&units=imperial&APPID=${weatherApi}`
+    )
+    .then(response => {
+      console.log(response.data.main.temp);
+      res.json(response.data.main.temp);
+    })
+    .catch(error => {
+      console.log("Error fetching and parsing data", error);
+    });
+});
+
 app.post("/review", function(req, res, next) {
   var review = new Review(req.body);
   review.save(function(err, review) {

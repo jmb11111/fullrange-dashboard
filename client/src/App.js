@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Home from "./Home.js";
-import Comment from "./Comment.js";
 import axios from "axios";
 import countdown from "countdown";
 
@@ -65,6 +64,7 @@ class App extends Component {
       });
   };
 
+
   constructor() {
     super();
     this.state = {};
@@ -96,8 +96,6 @@ class App extends Component {
               />
             )}
           />
-          <Route path={`/comment`} render={() => <Comment />} />
-          {/* <Route component={RouteError} /> */}
         </Switch>
       </BrowserRouter>
     );
