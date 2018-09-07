@@ -81,7 +81,10 @@ class Home extends Component {
       <div>
         <Header />
         <div className="container card-columns ml-auto mr-auto mt-5 row d-flex justify-content-between ">
-          <div className="card col-lg-3 bg-dark text-center " id="facebook">
+          <div
+            className="card col-lg-3 bg-dark text-center shadow "
+            id="facebook"
+          >
             <div className="card-body bg-dark text-white mb-5">
               <h5 className="card-title mb-5">
                 What Classes Can I Make It For?
@@ -233,7 +236,7 @@ class Home extends Component {
             </FacebookProvider>
           </div>
 
-          <div className="card col-lg-3 bg-dark text-center">
+          <div className="card col-lg-3 bg-dark text-center shadow">
             <div className="card-header bg-primary text-white mt-3">
               Today's WOD
             </div>

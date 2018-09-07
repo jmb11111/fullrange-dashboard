@@ -9,11 +9,12 @@ const session = require("express-session");
 const path = require("path");
 const axios = require("axios");
 const Review = require("./models").Review;
+const config = require("./config");
 
 // import apiKey from "./config.js";
 const app = express();
-let apiKey = process.env.api;
-let sugarApi = process.env.sugarApi;
+let apiKey = process.env.api || config.googleAPI;
+let sugarApi = process.env.sugarApi || config.sugarAPI;
 let url = process.env.MONGODB_URI;
 // set our port
 
