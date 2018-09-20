@@ -145,7 +145,7 @@ class Home extends Component {
                   )}
                   {this.state.today === 1 ||
                   this.state.today === 3 ||
-                  this.state.today === 4 ? (
+                  this.state.today === 5 ? (
                     this.props.NoonClassIs > this.props.duration ? (
                       <li className="list-group-item list-group-item-success ">
                         12PM ✓
